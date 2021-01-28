@@ -1,20 +1,60 @@
 import sys
 import os
 sys.path.append("../img2vec_pytorch")  # Adds higher directory to python modules path.
-from img2vec_pytorch import Img2Vec
-from PIL import Image
-from sklearn.metrics.pairwise import cosine_similarity
+#from img2vec_pytorch import Img2Vec
 import psycopg2
+from psycopg2 import Error
 
-conn = psycopg2.connect("dbname=frutas user=postgres")
+def GetAll():
+    try:
+        connection = psycopg2.connect(user="postgres",
+                                password="sql",
+                                host="localhost",
+                                port="5432",
+                                database="frutas")
 
-print(conn)
-cur = conn.cursor()
-print(cur)
-cur.execute('CREATE TABLE fruits(id serial PRIMARY KEY, clave varchar, vector varchar)')
+        
+        cursor = connection.cursor()
+        
+        cursor.execute('SELECT * FROM imagenes;')
+        return(print(cursor.fetchall()))
 
 
-#print(conn.query('SELECT * FROM frutas'))
+    except(Exception, Error) as error:
+        print('Error!' , error)
+
+    finally:
+        if(connection):
+            cursor.close()
+            connection.close()
+
+
+def Insert():
+    try:
+        connection = psycopg2.connect(user="postgres",
+                                password="sql",
+                                host="localhost",
+                                port="5432",
+                                database="frutas")
+
+        
+        cursor = connection.cursor()
+        
+        cursor.execute('''INSERT INTO imagenes(vector, ruta) VALUES('fruta1','fruta1');''')
+        print('insertado')
+
+
+    except(Exception, Error) as error:
+        print('Error!' , error)
+
+    finally:
+        if(connection):
+            connection.commit()
+            cursor.close()
+            connection.close()
+
+#Insert()
+#print(GetAll())
 
 """
 #path de carpeta de imegenes
