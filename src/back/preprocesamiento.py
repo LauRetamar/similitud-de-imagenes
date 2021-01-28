@@ -29,7 +29,7 @@ def GetAll():
             connection.close()
 
 
-def Insert():
+def Insert(vector, ruta):
     try:
         connection = psycopg2.connect(user="postgres",
                                 password="sql",
@@ -40,7 +40,7 @@ def Insert():
         
         cursor = connection.cursor()
         
-        cursor.execute('''INSERT INTO imagenes(vector, ruta) VALUES('fruta1','fruta1');''')
+        cursor.execute('''INSERT INTO imagenes(vector, ruta) VALUES({},{});'''.format(vector,ruta))
         print('insertado')
 
 
@@ -53,7 +53,7 @@ def Insert():
             cursor.close()
             connection.close()
 
-#Insert()
+#Insert(3,3)
 #print(GetAll())
 
 """
