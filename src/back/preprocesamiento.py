@@ -21,24 +21,13 @@ def IniciarConexion():
     except(Exception, Error) as error:
         print('Error!' , error)
 
-def GetAll(cursor):
-    try:
-        
-        
-        cursor.execute('SELECT * FROM imagenes;')
-        return(print(cursor.fetchall()))
-
-
-    except(Exception, Error) as error:
-        print('Error!' , error)
 
 
 
 def Insert(cursor,vector, ruta):
     try:      
-        cursor.execute('''INSERT INTO imagenes(vector, ruta) VALUES('{}','{}');'''.format(vector,ruta))
+        cursor.execute('''INSERT INTO imagenes2(vector, ruta) VALUES('{}','{}');'''.format(vector,ruta))
         print('insertado')
-
 
     except(Exception, Error) as error:
         print('Error!' , error)
@@ -52,22 +41,35 @@ def CerrarConexion(connection):
             print('Conexion finalizada :)')
 
 
-#Insert(3,3)
-#print(GetAll())
+
 
 img2vec = Img2Vec()
 
-input_path = '../../imagenes/imagenes-frutas/'
+input_path = './imagenes/imagenes-frutas/'
 pics = {}
 
 cursor, connection = IniciarConexion()
 
+i = 0
 for file in os.listdir(input_path):
+
     filename = os.fsdecode(file)
     img = Image.open(os.path.join(input_path, filename))
     vec = img2vec.get_vec(img)
     
+    #Acomodando formato
+    vec = str(vec)
+    vec = vec.replace('[','{')
+    vec = vec.replace(']','}')
+    vec = vec.replace(' ',', ')
+
     Insert(cursor,vec,file)
+    
+    if (i == 10):
+        
+        print('listo los 10')
+        break
+    i += 1
 
 CerrarConexion(connection)
 
