@@ -23,4 +23,3 @@ def ObtenerSimilares(cantidad, vectorEntrada):
     return(similares_sort)
 
 
-print(ObtenerSimilares(5))

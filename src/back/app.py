@@ -3,7 +3,9 @@ from flask import Flask, flash, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 from PIL import Image
 from img2vec_pytorch import Img2Vec
-from back.procesamiento.py import ObtenerSimilares
+from procesamiento import ObtenerSimilares
+
+
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -35,7 +37,7 @@ def upload_file():
             img2vec = Img2Vec()
             # The next line generates and stores the image vector in the 'vec' variable.
             vec = img2vec.get_vec(img)
-            ObtenerSimilares(5,vec)
+            print(ObtenerSimilares(5,vec))
             # print(vec)
 
     return '''
