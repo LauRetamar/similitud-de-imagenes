@@ -40,21 +40,7 @@ def upload_file():
             print(ObtenerSimilares(5,vec))
             # print(vec)
 
-    return '''
-    <!doctype html>
-    <title>Similitud de frutas</title>
-    <h1>Elija una imagen para encontrar las frutas más similares.</h1>
-    <h2>¡Nuestra base de datos cuenta con más de 31.000 imágenes!</h2>
-    <form method=post enctype=multipart/form-data>
-      <input id="fileinput" type=file name=file>
-      <br>
-      <br>
-      <input type=submit value=Comparar>
-      <br>
-      <br>
-      <img id="output">
-    </form>
-    '''
+    return render_template('home.html')
 
 
 @app.route('/uploads/<filename>')

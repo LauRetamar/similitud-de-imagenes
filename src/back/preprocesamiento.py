@@ -10,7 +10,7 @@ from PIL import Image
 def IniciarConexion():
     try:
         connection = psycopg2.connect(user="postgres",
-                                        password="sql",
+                                        password="postgre",
                                         host="localhost",
                                         port="5432",
                                         database="frutas")
@@ -26,7 +26,7 @@ def IniciarConexion():
 
 def Insert(cursor,vector, ruta):
     try:      
-        cursor.execute('''INSERT INTO imagenes2(vector, ruta) VALUES('{}','{}');'''.format(vector,ruta))
+        cursor.execute('''INSERT INTO imagenes(vector, ruta) VALUES('{}','{}');'''.format(vector,ruta))
         print('insertado')
 
     except(Exception, Error) as error:
@@ -50,7 +50,6 @@ pics = {}
 
 cursor, connection = IniciarConexion()
 
-i = 0
 for file in os.listdir(input_path):
 
     filename = os.fsdecode(file)
@@ -64,12 +63,6 @@ for file in os.listdir(input_path):
     vec = vec.replace(' ',', ')
 
     Insert(cursor,vec,file)
-    
-    if (i == 10):
-        
-        print('listo los 10')
-        break
-    i += 1
 
 CerrarConexion(connection)
 

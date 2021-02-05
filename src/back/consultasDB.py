@@ -6,7 +6,7 @@ from psycopg2 import Error
 def IniciarConexion():
     try:
         connection = psycopg2.connect(user="postgres",
-                                        password="sql",
+                                        password="postgre",
                                         host="localhost",
                                         port="5432",
                                         database="frutas")
@@ -21,7 +21,7 @@ def GetAll(cursor):
     try:
         
         
-        cursor.execute('SELECT * FROM imagenes2;')
+        cursor.execute('SELECT * FROM imagenes;')
         return(cursor.fetchall())
 
 
