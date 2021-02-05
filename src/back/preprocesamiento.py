@@ -5,6 +5,7 @@ from img2vec_pytorch import Img2Vec
 import psycopg2
 from psycopg2 import Error
 from PIL import Image
+from progress.bar import Bar, ChargingBar
 
 
 def IniciarConexion():
@@ -27,7 +28,7 @@ def IniciarConexion():
 def Insert(cursor,vector, ruta):
     try:      
         cursor.execute('''INSERT INTO imagenes(vector, ruta) VALUES('{}','{}');'''.format(vector,ruta))
-        print('insertado')
+        #print('insertado')
 
     except(Exception, Error) as error:
         print('Error!' , error)
@@ -50,6 +51,9 @@ pics = {}
 
 cursor, connection = IniciarConexion()
 
+i = 0
+bar1 = Bar('Procesando:', max=31688)
+
 for file in os.listdir(input_path):
 
     filename = os.fsdecode(file)
@@ -63,8 +67,13 @@ for file in os.listdir(input_path):
     vec = vec.replace(' ',', ')
 
     Insert(cursor,vec,file)
+    #print(str(round(((i/31688)*100),2))+' %', end="\r", flush=True)
+    i = i+1
 
+    bar1.next()
+    
 CerrarConexion(connection)
+bar1.finish()
 
 
 
