@@ -21,7 +21,7 @@ def GetAll(cursor):
     try:
         
         
-        cursor.execute('SELECT * FROM imagenes;')
+        cursor.execute('SELECT * FROM imagenes2;')
         return(cursor.fetchall())
 
 
