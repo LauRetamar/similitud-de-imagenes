@@ -6,7 +6,7 @@ from psycopg2 import Error
 def IniciarConexion():
     try:
         connection = psycopg2.connect(user="postgres",
-                                        password="a",
+                                        password="sql",
                                         host="localhost",
                                         port="5432",
                                         database="frutas")
@@ -37,8 +37,6 @@ def CerrarConexion(connection):
 
 
 
-'''cursor, conexion = IniciarConexion()
+cursor, conexion = IniciarConexion()
 db = GetAll(cursor)
 CerrarConexion(conexion)
-
-print(db[0][0])'''
