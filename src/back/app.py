@@ -47,15 +47,15 @@ def upload_file():
             porcentajes = []
             for key in data:
                  rutas.append(key)
-                 porcentajes.append(key)
+                 porcentajes.append(data[key].round(3))
             
             #rutaimagen1 = '../../imagenes/imagenes-frutas/' + rutas[0]
-            nom = rutas[0]
-            rutaimagen1 = os.path.join(app.config['UPLOAD_FOLDER'], nom)
+       
+            
    
             
   
-            return render_template('home.html', ruta1 = rutaimagen1)
+            return render_template('home.html', ruta0 = rutas[0], coincidencia0 = porcentajes[0])
                    
 
             

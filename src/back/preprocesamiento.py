@@ -11,7 +11,7 @@ from progress.bar import Bar, ChargingBar
 def IniciarConexion():
     try:
         connection = psycopg2.connect(user="postgres",
-                                        password="postgre",
+                                        password="sql",
                                         host="localhost",
                                         port="5432",
                                         database="frutas")
@@ -20,18 +20,21 @@ def IniciarConexion():
         return cursor, connection
 
     except(Exception, Error) as error:
-        print('Error!' , error)
+        print('Error iniciando conexión!' , error)
 
 
-
-
+"""def CrearTabla(cursor):
+    try:      
+        cursor.execute('''CREATE TABLE imagenes(id serial PRIMARY KEY, vector real[], ruta varchar)''')
+        print('Tabla creada')
+    except(Exception, Error) as error:
+        print('Error creando tabla!' , error)
+"""
 def Insert(cursor,vector, ruta):
     try:      
-        cursor.execute('''INSERT INTO imagenes(vector, ruta) VALUES('{}','{}');'''.format(vector,ruta))
-        #print('insertado')
-
+        cursor.execute('''INSERT INTO imagenes(vector, ruta) VALUES('{}','{}');'''.format(vector,ruta))   
     except(Exception, Error) as error:
-        print('Error!' , error)
+        print('Error insertando!' , error)
 
    
 def CerrarConexion(connection):
@@ -43,16 +46,17 @@ def CerrarConexion(connection):
 
 
 
-
 img2vec = Img2Vec()
 
-input_path = './imagenes/imagenes-frutas/'
+input_path = './static/'
 pics = {}
 
 cursor, connection = IniciarConexion()
 
-i = 0
+
+
 bar1 = Bar('Procesando:', max=31688)
+
 
 for file in os.listdir(input_path):
 
@@ -60,18 +64,16 @@ for file in os.listdir(input_path):
     img = Image.open(os.path.join(input_path, filename))
     vec = img2vec.get_vec(img)
     
-    #Acomodando formato
     vec = str(vec)
     vec = vec.replace('[','{')
     vec = vec.replace(']','}')
     vec = vec.replace(' ',', ')
 
     Insert(cursor,vec,file)
-    #print(str(round(((i/31688)*100),2))+' %', end="\r", flush=True)
-    i = i+1
+
 
     bar1.next()
-    
+
 CerrarConexion(connection)
 bar1.finish()
 

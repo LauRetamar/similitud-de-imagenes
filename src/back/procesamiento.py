@@ -1,5 +1,5 @@
 import operator
-from consultasDB import GetAll, IniciarConexion, CerrarConexion
+from src.back.consultasDB import GetAll, IniciarConexion, CerrarConexion
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy
 
@@ -20,6 +20,6 @@ def ObtenerSimilares(cantidad, vectorEntrada):
 
     similares_sort = dict(sorted(similares.items(), key=lambda item: item[1],reverse=True)[:cantidad])
 
-    return(similares_sort)
+    return(similares_sort, similares)
 
 

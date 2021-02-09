@@ -6,7 +6,7 @@ from psycopg2 import Error
 def IniciarConexion():
     try:
         connection = psycopg2.connect(user="postgres",
-                                        password="postgre",
+                                        password="sql",
                                         host="localhost",
                                         port="5432",
                                         database="frutas")
@@ -15,7 +15,7 @@ def IniciarConexion():
         return cursor, connection
 
     except(Exception, Error) as error:
-        print('Error!' , error)
+        print('Error iniciando conexión!' , error)
 
 def GetAll(cursor):
     try:
