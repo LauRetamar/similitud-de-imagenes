@@ -1,5 +1,5 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, send_from_directory
+from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template
 from werkzeug.utils import secure_filename
 from PIL import Image
 from img2vec_pytorch import Img2Vec
@@ -21,6 +21,8 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    data = ''
+
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -37,10 +39,28 @@ def upload_file():
             img2vec = Img2Vec()
             # The next line generates and stores the image vector in the 'vec' variable.
             vec = img2vec.get_vec(img)
-            print(ObtenerSimilares(5,vec))
-            # print(vec)
+            
+        
+            data = (ObtenerSimilares(5,vec))
 
-    return render_template('home.html')
+            rutas = []
+            porcentajes = []
+            for key in data:
+                 rutas.append(key)
+                 porcentajes.append(key)
+            
+            #rutaimagen1 = '../../imagenes/imagenes-frutas/' + rutas[0]
+            nom = rutas[0]
+            rutaimagen1 = os.path.join(app.config['UPLOAD_FOLDER'], nom)
+   
+            
+  
+            return render_template('home.html', ruta1 = rutaimagen1)
+                   
+
+            
+    if  request.method == 'GET':
+        return render_template('home.html')
 
 
 @app.route('/uploads/<filename>')
