@@ -6,7 +6,7 @@ import psycopg2
 from psycopg2 import Error
 from PIL import Image
 from progress.bar import Bar, ChargingBar
-
+import time
 
 def IniciarConexion():
     try:
@@ -23,18 +23,25 @@ def IniciarConexion():
         print('Error iniciando conexión!' , error)
 
 
-"""def CrearTabla(cursor):
+def CrearTabla(cursor):
     try:      
         cursor.execute('''CREATE TABLE imagenes(id serial PRIMARY KEY, vector real[], ruta varchar)''')
         print('Tabla creada')
     except(Exception, Error) as error:
         print('Error creando tabla!' , error)
-"""
+
+
 def Insert(cursor,vector, ruta):
     try:      
-        cursor.execute('''INSERT INTO imagenes(vector, ruta) VALUES('{}','{}');'''.format(vector,ruta))   
+        cursor.execute('''INSERT INTO imagenes(vector, ruta) VALUES('{}','{}');'''.format(vector,ruta))
+
     except(Exception, Error) as error:
+        while(True):
+            print('Ruta defectuosa: ' + ruta)
+            time.sleep(2)
         print('Error insertando!' , error)
+        
+   
 
    
 def CerrarConexion(connection):
@@ -52,8 +59,7 @@ input_path = './static/'
 pics = {}
 
 cursor, connection = IniciarConexion()
-
-
+CrearTabla(cursor)
 
 bar1 = Bar('Procesando:', max=31688)
 

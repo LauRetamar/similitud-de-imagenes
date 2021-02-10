@@ -38,8 +38,8 @@ def upload_file():
             vec = img2vec.get_vec(img)
             
         
-            data, similares = (ObtenerSimilares(5,vec))
-            print(similares)
+            data = (ObtenerSimilares(5,vec))
+
 
             rutas = []
             porcentajes = []

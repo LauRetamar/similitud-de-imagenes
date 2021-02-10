@@ -20,6 +20,6 @@ def ObtenerSimilares(cantidad, vectorEntrada):
 
     similares_sort = dict(sorted(similares.items(), key=lambda item: item[1],reverse=True)[:cantidad])
 
-    return(similares_sort, similares)
+    return(similares_sort)
 
 
