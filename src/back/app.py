@@ -7,7 +7,7 @@ from procesamiento import ObtenerSimilares
 
 
 
-UPLOAD_FOLDER = '/path/to/the/uploads'
+#UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
@@ -63,7 +63,7 @@ def upload_file():
         return render_template('home.html')
 
 
-@app.route('/uploads/<filename>')
+'''@app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
+                               filename)'''

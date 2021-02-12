@@ -11,7 +11,7 @@ import time
 def IniciarConexion():
     try:
         connection = psycopg2.connect(user="postgres",
-                                        password="xxxx",
+                                        password="postgre",
                                         host="localhost",
                                         port="5432",
                                         database="frutas")

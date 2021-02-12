@@ -3,54 +3,84 @@
 <h1>Elija una imagen para encontrar las frutas más similares.</h1>
 <h2>¡Nuestra base de datos cuenta con más de 31.000 imágenes!</h2>
 <form method=post enctype=multipart/form-data>
-  <input id="fileinput" type=file name=file>
+  <!-- <input id="fileinput" type=file name=file> -->
+
+  <input id="fileinput" type=file name=file onchange="PreviewImage();" />
+  <script type="text/javascript">
+
+    function PreviewImage() {
+      var oFReader = new FileReader();
+      oFReader.readAsDataURL(document.getElementById("fileinput").files[0]);
+
+      oFReader.onload = function (oFREvent) {
+        document.getElementById("uploadPreview").src = oFREvent.target.result;
+      };
+
+    };
+
+  </script>
+
   <br>
   <br>
-  <input type=submit value=Comparar>
+
+  <img id="uploadPreview" style="width: 100px; height: 100px; margin-left: 2em;" />
+
   <br>
   <br>
-  
-  <div class="card">
-    <img src="static/{{ruta1}}" alt="img1" >
-    <div class="container">
-      <h4><b>Nombre: {{ ruta1 }}</b></h4>
-      <p>Coincidencia del {{ coincidencia1 }}%</p>
+
+  <input type=submit value=Comparar />
+  <!-- <script type="text/javascript">
+
+    function ShowResults() {
+      var T = document.getElementById("results");
+      T.style.display = "block";  // <-- Set it to block
+    };
+
+  </script> -->
+  <br>
+  <br>
+
+
+  <div id="results">
+    <div class="card">
+      <img src="static/{{ruta1}}" alt="img1" style="margin-left: 2em;">
+      <div class="container">
+        <h4><b>Nombre: {{ ruta1 }}</b></h4>
+        <p>Coincidencia del {{ coincidencia1 }}%</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="static/{{ruta2}}" alt="img2" style="margin-left: 2em;">
+      <div class="container">
+        <h4><b>Nombre: {{ ruta2 }}</b></h4>
+        <p>Coincidencia del {{ coincidencia2 }}%</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="static/{{ruta3}}" alt="img3" style="margin-left: 2em;">
+      <div class="container">
+        <h4><b>Nombre: {{ ruta3 }}</b></h4>
+        <p>Coincidencia del {{ coincidencia3 }}%</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="static/{{ruta4}}" alt="img4" style="margin-left: 2em;">
+      <div class="container">
+        <h4><b>Nombre: {{ ruta4 }}</b></h4>
+        <p>Coincidencia del {{ coincidencia4 }}%</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="static/{{ruta5}}" alt="img5" style="margin-left: 2em;">
+      <div class="container">
+        <h4><b>Nombre: {{ ruta5 }}</b></h4>
+        <p>Coincidencia del {{ coincidencia5 }}%</p>
+      </div>
     </div>
   </div>
-
-  <div class="card">
-    <img src="static/{{ruta2}}" alt="img2" >
-    <div class="container">
-      <h4><b>Nombre: {{ ruta2 }}</b></h4>
-      <p>Coincidencia del {{ coincidencia2 }}%</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="static/{{ruta3}}" alt="img3" >
-    <div class="container">
-      <h4><b>Nombre: {{ ruta3 }}</b></h4>
-      <p>Coincidencia del {{ coincidencia3 }}%</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="static/{{ruta4}}" alt="img4" >
-    <div class="container">
-      <h4><b>Nombre: {{ ruta4 }}</b></h4>
-      <p>Coincidencia del {{ coincidencia4 }}%</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="static/{{ruta5}}" alt="img5" >
-    <div class="container">
-      <h4><b>Nombre: {{ ruta5 }}</b></h4>
-      <p>Coincidencia del {{ coincidencia5 }}%</p>
-    </div>
-  </div>
-
-
-
 
 </form>
